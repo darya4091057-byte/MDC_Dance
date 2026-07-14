@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDC - ToDo List</title>
+    <link rel="manifest" href="/mdc-dancing/manifest.json">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body{background:#1a1a1a;color:#e8e8e8}
+        .todo-container{max-width:800px;margin:0 auto;padding:20px}
+        .todo-header{background:#2a2a2a;padding:30px;border-radius:20px;margin-bottom:30px;text-align:center;border:1px solid #3a3a3a}
+        .todo-header h1{color:#fff;font-weight:700}
+        .todo-header h1 span{color:#ff6b6b}
+        .todo-form{background:#2a2a2a;padding:25px;border-radius:16px;border:1px solid #3a3a3a;margin-bottom:30px}
+        .todo-form input,.todo-form textarea,.todo-form select{background:#1a1a1a;border:1px solid #3a3a3a;color:#fff;border-radius:12px;padding:12px 16px;width:100%;margin-bottom:12px}
+        .todo-form input:focus,.todo-form textarea:focus,.todo-form select:focus{border-color:#ff6b6b;outline:none;box-shadow:0 0 0 3px rgba(255,107,107,0.2)}
+        .todo-form input::placeholder,.todo-form textarea::placeholder{color:#666}
+        .btn-add{background:#ff6b6b;color:#fff;border:none;padding:12px 30px;border-radius:50px;font-weight:600;font-size:16px;width:100%}
+        .btn-add:hover{background:#ff5252;color:#fff}
+        .btn-delete-selected{background:#dc3545;color:#fff;border:none;padding:10px 25px;border-radius:50px;font-weight:600;font-size:14px}
+        .btn-delete-selected:hover{background:#bb2d3b;color:#fff}
+        .btn-delete-selected:disabled{opacity:0.5;cursor:not-allowed}
+        .todo-item{background:#2a2a2a;border:1px solid #3a3a3a;border-radius:16px;padding:18px 20px;margin-bottom:12px;display:flex;align-items:center;gap:15px}
+        .todo-item:hover{border-color:#ff6b6b}
+        .todo-item.completed .todo-title{text-decoration:line-through;opacity:0.6}
+        .todo-item .todo-checkbox{width:20px;height:20px;cursor:pointer;accent-color:#ff6b6b;flex-shrink:0}
+        .todo-item .todo-content{flex:1}
+        .todo-item .todo-title{color:#fff;font-weight:600;font-size:18px;margin:0}
+        .todo-item .todo-desc{color:#aaa;font-size:14px;margin:4px 0 0}
+        .todo-item .todo-date{color:#ff6b6b;font-size:13px;font-weight:500;margin-top:4px}
+        .todo-item .todo-actions{display:flex;gap:8px;flex-shrink:0}
+        .todo-item .btn-toggle{background:transparent;border:1px solid #3a3a3a;color:#aaa;border-radius:50px;padding:6px 14px;font-size:13px;cursor:pointer}
+        .todo-item .btn-toggle:hover{border-color:#ff6b6b;color:#ff6b6b}
+        .todo-item .btn-toggle.done{border-color:#28a745;color:#28a745}
+        .todo-item .btn-delete{background:transparent;border:none;color:#666;font-size:18px;cursor:pointer;padding:0 5px}
+        .todo-item .btn-delete:hover{color:#ff6b6b}
+        .todo-filters{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;align-items:center}
+        .todo-filters .filter-btn{background:transparent;border:1px solid #3a3a3a;color:#aaa;border-radius:50px;padding:6px 18px;font-size:13px;cursor:pointer}
+        .todo-filters .filter-btn:hover,.todo-filters .filter-btn.active{border-color:#ff6b6b;color:#ff6b6b;background:rgba(255,107,107,0.1)}
+        .todo-filters .filter-btn.active{border-color:#ff6b6b;color:#ff6b6b}
+        .todo-stats{color:#888;font-size:14px;margin-left:auto}
+        .empty-message{text-align:center;color:#666;padding:40px 0}
+        .empty-message i{font-size:48px;color:#333;margin-bottom:15px}
+        .sort-controls{display:flex;gap:10px;align-items:center}
+        .sort-controls select{background:#1a1a1a;border:1px solid #3a3a3a;color:#fff;border-radius:12px;padding:8px 14px;font-size:13px}
+        .sort-controls select:focus{border-color:#ff6b6b;outline:none}
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">MDC <span>Dancing</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="styles.html">Направления</a></li>
+                    <li class="nav-item"><a class="nav-link" href="choreographers.html">Хореографы</a></li>
+                    <li class="nav-item"><a class="nav-link" href="booking.html">Запись</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="todo.html">ToDo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="php/admin.php" style="color:#ff6b6b!important">🔐 Админ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="todo-container">
+            <div class="todo-header">
+                <h1>📋 <span>ToDo</span> List</h1>
+                <p style="color:#aaa;margin:0">Управляйте своими задачами</p>
+            </div>
+
+            <div class="todo-form">
+                <div class="row g-2">
+                    <div class="col-md-5"><input type="text" id="t" placeholder="Название задачи *" required></div>
+                    <div class="col-md-3"><input type="date" id="d"></div>
+                    <div class="col-md-4"><button class="btn-add" onclick="add()"><i class="fas fa-plus me-2"></i> Добавить</button></div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12"><textarea id="desc" rows="2" placeholder="Описание (необязательно)"></textarea></div>
+                </div>
+            </div>
+
+            <div class="todo-filters">
+                <button class="filter-btn active" data-f="all" onclick="setFilter('all')">Все</button>
+                <button class="filter-btn" data-f="active" onclick="setFilter('active')">Активные</button>
+                <button class="filter-btn" data-f="completed" onclick="setFilter('completed')">Выполненные</button>
+                <div class="sort-controls">
+                    <label style="color:#aaa;font-size:13px">Сортировка:</label>
+                    <select id="sort" onchange="render()">
+                        <option value="date-asc">По дате (новые)</option>
+                        <option value="date-desc">По дате (старые)</option>
+                        <option value="title">По названию</option>
+                    </select>
+                </div>
+                <button class="btn-delete-selected" id="delSel" onclick="delSelected()" disabled><i class="fas fa-trash me-1"></i> Удалить выделенные</button>
+                <span class="todo-stats" id="stats">Задач: 0</span>
+            </div>
+
+            <div id="list"><div class="empty-message"><i class="fas fa-clipboard-list"></i><p>Нет задач. Добавьте первую!</p></div></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>MDC <span>Dancing</span> — танцевальная студия премиум-класса</p>
+            <small style="color:#444;">© <span id="year"></span> Все права защищены</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let tasks=[], filter='all', idC=0;
+        const $=id=>document.getElementById(id), q=(s,p=document)=>p.querySelector(s), qa=(s,p=document)=>[...p.querySelectorAll(s)];
+
+        function load(){
+            let s=localStorage.getItem('mdc_tasks');
+            if(s){tasks=JSON.parse(s);if(tasks.length)idC=Math.max(...tasks.map(t=>t.id))+1}
+        }
+        function save(){localStorage.setItem('mdc_tasks',JSON.stringify(tasks));updStats()}
+
+        function add(){
+            let t=$('t').value.trim(), desc=$('desc').value.trim(), date=$('d').value;
+            if(!t){alert('Введите название!');return}
+            tasks.push({id:idC++,title:t,description:desc||'',date:date||'',completed:false});
+            save();render();$('t').value='';$('desc').value='';$('d').value='';$('t').focus();
+        }
+
+        function toggle(id){let t=tasks.find(x=>x.id===id);if(t){t.completed=!t.completed;save();render()}}
+        function del(id){if(confirm('Удалить?')){tasks=tasks.filter(x=>x.id!==id);save();render()}}
+
+        function delSelected(){
+            let cbs=qa('.todo-checkbox:checked');
+            if(!cbs.length){alert('Выберите задачи!');return}
+            if(confirm('Удалить '+cbs.length+' задач?')){
+                let ids=cbs.map(cb=>parseInt(cb.dataset.id));
+                tasks=tasks.filter(t=>!ids.includes(t.id));
+                save();render();
+            }
+        }
+
+        function setFilter(f){filter=f;qa('.filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.f===f));render()}
+
+        function getFiltered(){
+            let r=[...tasks];
+            if(filter==='active')r=r.filter(t=>!t.completed);
+            if(filter==='completed')r=r.filter(t=>t.completed);
+            let sort=$('sort').value;
+            if(sort==='date-asc')r.sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+            if(sort==='date-desc')r.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+            if(sort==='title')r.sort((a,b)=>a.title.localeCompare(b.title));
+            return r;
+        }
+
+        function render(){
+            let container=$('list'), filtered=getFiltered();
+            if(!filtered.length){
+                container.innerHTML=`<div class="empty-message"><i class="fas fa-clipboard-list"></i><p>${tasks.length?'Нет задач по фильтру':'Нет задач. Добавьте первую!'}</p></div>`;
+                updStats();updDelBtn();return;
+            }
+            let html='';
+            filtered.forEach(t=>{
+                let done=t.completed, date=t.date?t.date.split('-').reverse().join('.'):'Без даты';
+                html+=`<div class="todo-item ${done?'completed':''}">
+                    <input type="checkbox" class="todo-checkbox" data-id="${t.id}" onchange="updDelBtn()">
+                    <div class="todo-content">
+                        <div class="todo-title">${esc(t.title)}</div>
+                        ${t.description?`<div class="todo-desc">${esc(t.description)}</div>`:''}
+                        <div class="todo-date"><i class="far fa-calendar-alt me-1"></i> ${date}</div>
+                    </div>
+                    <div class="todo-actions">
+                        <button class="btn-toggle ${done?'done':''}" onclick="toggle(${t.id})">${done?'✅ Выполнено':'⬜ В работе'}</button>
+                        <button class="btn-delete" onclick="del(${t.id})"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>`;
+            });
+            container.innerHTML=html;
+            updStats();updDelBtn();
+        }
+
+        function esc(t){let d=document.createElement('div');d.textContent=t;return d.innerHTML}
+        function updStats(){let total=tasks.length,done=tasks.filter(t=>t.completed).length;$('stats').textContent=`Задач: ${total} (✅ ${done} выполнено)`}
+        function updDelBtn(){let c=qa('.todo-checkbox:checked').length,b=$('delSel');b.disabled=c===0;b.textContent=c===0?'🗑️ Удалить выделенные':`🗑️ Удалить (${c})`}
+
+        $('year').textContent=new Date().getFullYear();
+        load();
+        $('t').addEventListener('keypress',e=>{if(e.key==='Enter'){e.preventDefault();add()}});
+        render();
+    </script>
+    <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/mdc-dancing/sw.js')
+            .then(() => console.log('✅ Service Worker зарегистрирован успешно!'))
+            .catch(() => console.log('❌ Ошибка регистрации Service Worker'));
+    }
+    </script>
+</body>
+</html>

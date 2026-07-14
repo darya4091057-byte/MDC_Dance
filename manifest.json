@@ -1,0 +1,24 @@
+{
+  "name": "MDC Dancing",
+  "short_name": "MDC",
+  "description": "Танцевальная студия MDC Dancing",
+  "start_url": "/mdc-dancing/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#ff6b6b",
+  "background_color": "#1a1a1a",
+  "icons": [
+    {
+      "src": "/mdc-dancing/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/mdc-dancing/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
