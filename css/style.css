@@ -1,0 +1,283 @@
+/* Тёмно-серая тема с фоновым изображением */
+body {
+    background: #1a1a1a;
+    color: #e8e8e8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Шапка */
+.navbar {
+    background: #2a2a2a !important;
+    border-bottom: 1px solid #3a3a3a;
+    padding: 15px 0;
+}
+.navbar-brand {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #ff6b6b !important;
+}
+.navbar-brand span {
+    color: #ff6b6b;
+}
+.nav-link {
+    color: #bbbbbb !important;
+    font-weight: 500;
+    margin: 0 12px;
+    transition: 0.3s;
+    font-size: 15px;
+}
+.nav-link:hover, .nav-link.active {
+    color: #ff6b6b !important;
+}
+
+/* Главная с фоновым изображением */
+.hero {
+    text-align: center;
+    padding: 140px 0 120px;
+    background-image: url('../images/dance-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 24px;
+    margin: 20px 0 40px;
+    position: relative;
+    min-height: 550px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Затемнение для читаемости текста */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: 24px;
+}
+
+/* Текст поверх затемнения */
+.hero h1,
+.hero p,
+.hero .btn-start {
+    position: relative;
+    z-index: 1;
+}
+
+.hero h1 {
+    font-size: 76px;
+    font-weight: 900;
+    letter-spacing: 6px;
+    color: #ffffff;
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+}
+.hero h1 span {
+    color: #ff6b6b;
+}
+.hero p {
+    font-size: 24px;
+    color: #ffffff;
+    margin-top: 15px;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.6);
+}
+.btn-start {
+    background: #ff6b6b;
+    color: #fff;
+    border: none;
+    padding: 14px 55px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 20px;
+    margin-top: 25px;
+    transition: 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+}
+.btn-start:hover {
+    background: #ff5252;
+    transform: scale(1.05);
+    color: #fff;
+}
+
+/* Карточки направлений */
+.section-title {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 35px;
+    border-left: 4px solid #ff6b6b;
+    padding-left: 20px;
+    color: #ffffff;
+}
+.section-title span {
+    color: #ff6b6b;
+}
+
+.style-card {
+    background: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    border-radius: 16px;
+    padding: 25px 20px;
+    text-align: center;
+    transition: 0.3s;
+    cursor: pointer;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.style-card:hover {
+    transform: translateY(-8px);
+    border-color: #ff6b6b;
+    box-shadow: 0 10px 30px rgba(255, 107, 107, 0.15);
+}
+.style-card .icon {
+    font-size: 42px;
+    color: #ff6b6b;
+    margin-bottom: 15px;
+}
+.style-card h5 {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 20px;
+}
+.style-card p {
+    color: #aaaaaa;
+    font-size: 14px;
+    margin-top: 8px;
+}
+.style-card .hover-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #ff6b6b;
+    transform: scaleX(0);
+    transition: 0.3s;
+}
+.style-card:hover .hover-line {
+    transform: scaleX(1);
+}
+
+/* Цены на занятия */
+.pricing {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.price-single {
+    color: #ff6b6b;
+    font-weight: 600;
+    font-size: 15px;
+}
+.price-pack {
+    color: #999999;
+    font-size: 13px;
+}
+.price-pack::before {
+    content: "• ";
+    color: #ff6b6b;
+}
+
+/* Хореографы */
+.choreographer-card {
+    background: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.choreographer-card:hover {
+    border-color: #ff6b6b;
+    background: #323232;
+}
+.choreographer-card .avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #3a3a3a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    color: #ff6b6b;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+.choreographer-card .info h5 {
+    color: #ffffff;
+    margin: 0;
+    font-weight: 600;
+}
+.choreographer-card .info .style-tag {
+    color: #ff6b6b;
+    font-size: 14px;
+    font-weight: 500;
+}
+.choreographer-card .info p {
+    color: #aaaaaa;
+    font-size: 14px;
+    margin: 5px 0 0;
+}
+
+/* Контакты на главной */
+.contacts-block {
+    background: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    border-radius: 16px;
+    padding: 30px;
+    margin-top: 40px;
+    text-align: center;
+}
+.contacts-block .contact-item {
+    display: inline-block;
+    margin: 0 25px;
+    color: #bbbbbb;
+}
+.contacts-block .contact-item i {
+    color: #ff6b6b;
+    font-size: 20px;
+    margin-right: 10px;
+}
+.contacts-block .contact-item span {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+/* Подвал */
+footer {
+    background: #2a2a2a;
+    border-top: 1px solid #3a3a3a;
+    padding: 30px 0;
+    margin-top: 40px;
+    text-align: center;
+    color: #888888;
+}
+footer span {
+    color: #ff6b6b;
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 36px;
+    }
+    .choreographer-card {
+        flex-wrap: wrap;
+    }
+    .contacts-block .contact-item {
+        display: block;
+        margin: 10px 0;
+    }
+}
