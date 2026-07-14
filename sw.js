@@ -1,13 +1,12 @@
 const CACHE_NAME = 'mdc-cache-v1';
 const urlsToCache = [
-  '/mdc-dancing/',
-  '/mdc-dancing/index.html',
-  '/mdc-dancing/styles.html',
-  '/mdc-dancing/choreographers.html',
-  '/mdc-dancing/booking.html',
-  '/mdc-dancing/todo.html',
-  '/mdc-dancing/css/style.css',
-  '/mdc-dancing/js/main.js'
+  'index.html',
+  'styles.html',
+  'choreographers.html',
+  'booking.html',
+  'todo.html',
+  'css/style.css',
+  'js/main.js'
 ];
 
 self.addEventListener('install', event => {
