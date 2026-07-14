@@ -2,7 +2,7 @@
   "name": "MDC Dancing",
   "short_name": "MDC",
   "description": "Танцевальная студия MDC Dancing",
-  "start_url": "./mdc-dancing/index.html",
+  "start_url": "/mdc-dancing/index.html",
   "display": "standalone",
   "orientation": "portrait",
   "theme_color": "#ff6b6b",
